@@ -6,7 +6,7 @@ Welcome to Sitecore Hackathon 2018.
 
 The Hackathon site can be found at http://www.sitecorehackathon.org/sitecore-hackathon-2018/
 
-This purpose of repository is to provide a smaple which shows how to structure the Hackathon submissions. We highly recommend
+This purpose of repository is to provide a sample which shows how to structure the Hackathon submissions. We highly recommend
 
 
 ## Entry Submission Requirements 
@@ -25,7 +25,7 @@ All teams are required to submit the following as part of their entry submission
   - Standard coding standards & naming conventions
 
 - Precise and Clear Installation Instructions document (1 – 2 pages)
-- Module usage documentation on Readme.md file on the Git Repository (2 – 5 pages)
+- Module usage documentation on [Readme.md](documentation) file on the Git Repository (2 – 5 pages)
   - Module Purpose
   - Module Sitecore Hackathon Category
   - How does the end user use the Module?
