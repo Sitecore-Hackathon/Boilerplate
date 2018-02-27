@@ -50,9 +50,9 @@ Remember you are using Markdown, you can provide code samples too:
 
 ## Usage
 
-Provide documenation about your module, how do the users use your module, where are things located, what do icons mean, are there any secret shortcuts etc.
+Provide documentation  about your module, how do the users use your module, where are things located, what do icons mean, are there any secret shortcuts etc.
 
-Please include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documenation:
+Please include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
 
 ![Hackathon Logo](images/hackathon.png?raw=true "Hackathon Logo")
 
