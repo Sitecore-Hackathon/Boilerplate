@@ -243,7 +243,7 @@ function Install-SitecoreDockerTools {
         $SitecoreGallery = Get-PSRepository -Name SitecoreGallery
     }
     
-    $dockerToolsVersion = "10.0.5"
+    $dockerToolsVersion = "10.1.4"
     Remove-Module SitecoreDockerTools -ErrorAction SilentlyContinue
     if (-not (Get-InstalledModule -Name SitecoreDockerTools -RequiredVersion $dockerToolsVersion -ErrorAction SilentlyContinue)) {
         Write-Host "Installing SitecoreDockerTools..." -ForegroundColor Green

@@ -36,18 +36,13 @@ services:
       args:
         PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-mssql:${SITECORE_VERSION}
         SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
-        JSS_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/jss-xp1-assets:${JSS_VERSION}
+        JSS_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sitecore-headless-services-xp1-assets:${JSS_VERSION}
     volumes:
       - ${LOCAL_DATA_PATH}\mssql:c:\data
     mem_limit: ${MEM_LIMIT_SQL:-2GB}
     restart: always
 
   solr:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-solr:${VERSION:-latest}
-    build:
-      context: ./build/solr
-      args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-solr:${SITECORE_VERSION}
     volumes:
       - ${LOCAL_DATA_PATH}\solr:c:\data
     mem_limit: ${MEM_LIMIT_SOLR:-1GB}
@@ -73,7 +68,7 @@ services:
         SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
         SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
         TOOLS_IMAGE: ${TOOLS_IMAGE}
-        JSS_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/jss-xp1-assets:${JSS_VERSION}
+        JSS_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sitecore-headless-services-xp1-assets:${JSS_VERSION}
         NODEJS_VERSION: ${NODEJS_VERSION}
     depends_on:
       - solution
@@ -83,6 +78,7 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
+      Sitecore_JSS_ImportUser: ${JSS_IMPORT_USER:-sitecore\admin}
     entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
     mem_limit: ${MEM_LIMIT_CM:-4GB}
     restart: always

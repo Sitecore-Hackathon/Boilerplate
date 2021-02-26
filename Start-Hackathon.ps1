@@ -81,33 +81,34 @@ Copy-Item (Join-Path $licenseFolderPath "license.xml") ".\docker\license\"
 Write-Host "Copied license.xml to .\docker\license\" -ForegroundColor Magenta
 
 Push-Location ".\docker"
-Set-DockerComposeEnvFileVariable "COMPOSE_PROJECT_NAME" -Value $solutionName.ToLower() 
-Set-DockerComposeEnvFileVariable "HOST_LICENSE_FOLDER" -Value ".\license"
-Set-DockerComposeEnvFileVariable "HOST_DOMAIN"  -Value $hostDomain
-Set-DockerComposeEnvFileVariable "CM_HOST" -Value "cm.$($hostDomain)"
-Set-DockerComposeEnvFileVariable "ID_HOST" -Value "id.$($hostDomain)"
-Set-DockerComposeEnvFileVariable "RENDERING_HOST" -Value "www.$($hostDomain)"
+Set-EnvFileVariable "COMPOSE_PROJECT_NAME" -Value $solutionName.ToLower() 
+Set-EnvFileVariable "HOST_LICENSE_FOLDER" -Value ".\license"
+Set-EnvFileVariable "HOST_DOMAIN"  -Value $hostDomain
+Set-EnvFileVariable "CM_HOST" -Value "cm.$($hostDomain)"
+Set-EnvFileVariable "ID_HOST" -Value "id.$($hostDomain)"
+Set-EnvFileVariable "RENDERING_HOST" -Value "www.$($hostDomain)"
 
-Set-DockerComposeEnvFileVariable "REPORTING_API_KEY" -Value (Get-SitecoreRandomString 128 -DisallowSpecial)
-Set-DockerComposeEnvFileVariable "TELERIK_ENCRYPTION_KEY" -Value (Get-SitecoreRandomString 128)
-Set-DockerComposeEnvFileVariable "SITECORE_IDSECRET" -Value (Get-SitecoreRandomString 64 -DisallowSpecial)
+Set-EnvFileVariable "REPORTING_API_KEY" -Value (Get-SitecoreRandomString 128 -DisallowSpecial)
+Set-EnvFileVariable "TELERIK_ENCRYPTION_KEY" -Value (Get-SitecoreRandomString 128)
+Set-EnvFileVariable "MEDIA_REQUEST_PROTECTION_SHARED_SECRET" -Value (Get-SitecoreRandomString 64 -DisallowSpecial)
+Set-EnvFileVariable "SITECORE_IDSECRET" -Value (Get-SitecoreRandomString 64 -DisallowSpecial)
 $idCertPassword = Get-SitecoreRandomString 8 -DisallowSpecial
-Set-DockerComposeEnvFileVariable "SITECORE_ID_CERTIFICATE" -Value (Get-SitecoreCertificateAsBase64String -DnsName "localhost" -Password (ConvertTo-SecureString -String $idCertPassword -Force -AsPlainText))
-Set-DockerComposeEnvFileVariable "SITECORE_ID_CERTIFICATE_PASSWORD" -Value $idCertPassword
-Set-DockerComposeEnvFileVariable "SQL_SA_PASSWORD" -Value (Get-SitecoreRandomString 19 -DisallowSpecial -EnforceComplexity)
-Set-DockerComposeEnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value $AdminPassword
+Set-EnvFileVariable "SITECORE_ID_CERTIFICATE" -Value (Get-SitecoreCertificateAsBase64String -DnsName "localhost" -Password (ConvertTo-SecureString -String $idCertPassword -Force -AsPlainText))
+Set-EnvFileVariable "SITECORE_ID_CERTIFICATE_PASSWORD" -Value $idCertPassword
+Set-EnvFileVariable "SQL_SA_PASSWORD" -Value (Get-SitecoreRandomString 19 -DisallowSpecial -EnforceComplexity)
+Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value $AdminPassword
 
 if (Confirm -Question "Would you like to adjust common environment settings?") {
-    Set-DockerComposeEnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version (press enter for 10.0.1-ltsc2019)" -DefaultValue "10.0.1-ltsc2019" -Required)
-    Set-DockerComposeEnvFileVariable "SPE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore Powershell Extensions version (press enter for 6.1.1-1809)" -DefaultValue "6.1.1-1809" -Required)
-    Set-DockerComposeEnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value (Read-ValueFromHost -Question "Sitecore admin password (press enter for 'b')" -DefaultValue "b" -Required)
-    Set-DockerComposeEnvFileVariable "REGISTRY" -Value (Read-ValueFromHost -Question "Local container registry (leave empty if none, must end with /)")
-    Set-DockerComposeEnvFileVariable "ISOLATION" -Value (Read-ValueFromHost -Question "Container isolation mode (press enter for default)" -DefaultValue "default" -Required)
+    Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version (press enter for 10.0.1-ltsc2019)" -DefaultValue "10.0.1-ltsc2019" -Required)
+    Set-EnvFileVariable "SPE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore Powershell Extensions version (press enter for 6.1.1-1809)" -DefaultValue "6.1.1-1809" -Required)
+    Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value (Read-ValueFromHost -Question "Sitecore admin password (press enter for 'b')" -DefaultValue "b" -Required)
+    Set-EnvFileVariable "REGISTRY" -Value (Read-ValueFromHost -Question "Local container registry (leave empty if none, must end with /)")
+    Set-EnvFileVariable "ISOLATION" -Value (Read-ValueFromHost -Question "Container isolation mode (press enter for default)" -DefaultValue "default" -Required)
 
     if (Confirm -Question "Would you like to adjust container memory limits?") {
-        Set-DockerComposeEnvFileVariable "MEM_LIMIT_SQL" -Value (Read-ValueFromHost -Question "SQL Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
-        Set-DockerComposeEnvFileVariable "MEM_LIMIT_SOLR" -Value (Read-ValueFromHost -Question "Solr memory limit (default: 2GB)" -DefaultValue "2GB" -Required)
-        Set-DockerComposeEnvFileVariable "MEM_LIMIT_CM" -Value (Read-ValueFromHost -Question "CM Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
+        Set-EnvFileVariable "MEM_LIMIT_SQL" -Value (Read-ValueFromHost -Question "SQL Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
+        Set-EnvFileVariable "MEM_LIMIT_SOLR" -Value (Read-ValueFromHost -Question "Solr memory limit (default: 2GB)" -DefaultValue "2GB" -Required)
+        Set-EnvFileVariable "MEM_LIMIT_CM" -Value (Read-ValueFromHost -Question "CM Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
     }
 }
 

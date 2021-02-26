@@ -19,7 +19,3 @@ RUN C:\DeployDatabases.ps1 -ResourcesDirectory C:\spe_data; `
 COPY --from=jss \module\db \jss_data
 RUN C:\DeployDatabases.ps1 -ResourcesDirectory C:\jss_data; `
     Remove-Item -Path C:\jss_data -Recurse -Force;
-
-# Run custom SQL scripts
-COPY .\scripts\ \scripts\
-RUN Invoke-Sqlcmd -InputFile (Join-Path \scripts\ "UpdateItemPermissions.sql");
