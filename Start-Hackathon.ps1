@@ -99,8 +99,8 @@ Set-EnvFileVariable "SQL_SA_PASSWORD" -Value (Get-SitecoreRandomString 19 -Disal
 Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value $AdminPassword
 
 if (Confirm -Question "Would you like to adjust common environment settings?") {
-    Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version (press enter for 10.0.1-ltsc2019)" -DefaultValue "10.0.1-ltsc2019" -Required)
-    Set-EnvFileVariable "SPE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore Powershell Extensions version (press enter for 6.1.1-1809)" -DefaultValue "6.1.1-1809" -Required)
+    Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version (press enter for 10.1-ltsc2019)" -DefaultValue "10.1-ltsc2019" -Required)
+    Set-EnvFileVariable "SPE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore Powershell Extensions version (press enter for 6.2-1809)" -DefaultValue "6.2-1809" -Required)
     Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value (Read-ValueFromHost -Question "Sitecore admin password (press enter for 'b')" -DefaultValue "b" -Required)
     Set-EnvFileVariable "REGISTRY" -Value (Read-ValueFromHost -Question "Local container registry (leave empty if none, must end with /)")
     Set-EnvFileVariable "ISOLATION" -Value (Read-ValueFromHost -Question "Container isolation mode (press enter for default)" -DefaultValue "default" -Required)

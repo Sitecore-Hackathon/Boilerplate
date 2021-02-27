@@ -203,7 +203,8 @@ function Start-Docker {
     Pop-Location
 
     Write-Host "`n`n..now the last thing left to do is a little dance for about 15 seconds to make sure Traefik is ready..`n`n`n" -ForegroundColor DarkYellow
-    Write-Host "`nif something failed along the way, press [ctrl-c] to stop the dance and try again. Use '.\Remove-Starterkit' to clean up if needed..`n`n`n" -ForegroundColor Gray
+    Write-Host "`nif something failed along the way, press [ctrl-c] to stop the dance and try again. Use '.\Remove-Starterkit' to clean up if needed..`n" -ForegroundColor Gray
+    Write-Host "`ndon't forget to ""Populate Solr Managed Schema"" from the Control Panel`n`n`n" -ForegroundColor Yellow
     Write-PauseDanceAnim -PauseInSeconds 15    
     Write-Host "`n`n`ndance done.. opening https://$($url)`n`n" -ForegroundColor DarkGray
     Start-Process "https://$url"
