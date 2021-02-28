@@ -37,5 +37,8 @@ COPY --from=jss \module\tools \module\tools
 RUN C:\module\tools\Initialize-Content.ps1 -TargetPath .\; `
     Remove-Item -Path C:\module -Recurse -Force;
 
+# Allow configurable JSS Import User
+COPY .\config .\App_Config\Include\
+
 # Copy solution website files
 COPY --from=solution /artifacts/platform/ ./
