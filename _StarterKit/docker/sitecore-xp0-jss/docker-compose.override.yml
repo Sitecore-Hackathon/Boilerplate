@@ -68,7 +68,7 @@ services:
         SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
         SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
         TOOLS_IMAGE: ${TOOLS_IMAGE}
-        JSS_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sitecore-headless-services-xp1-assets:${JSS_VERSION}
+        HEADLESS_SERVICES_IMAGE: ${HEADLESS_SERVICES_IMAGE}  
         NODEJS_VERSION: ${NODEJS_VERSION}
     depends_on:
       - solution
