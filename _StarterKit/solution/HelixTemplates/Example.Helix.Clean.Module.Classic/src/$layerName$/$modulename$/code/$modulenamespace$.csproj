@@ -14,6 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>$moduleNamespace$</RootNamespace>
     <AssemblyName>$moduleNamespace$</AssemblyName>
+    <SitecoreRoleType>platform</SitecoreRoleType>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -59,11 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Sitecore.Assemblies.Platform">
-      <Version>$sitecoreVersion$</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Sitecore.Kernel" Version="$sitecoreVersion$" />
+    <PackageReference Include="Sitecore.Kernel" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="**\*.cs" Exclude="$(BaseIntermediateOutputPath)**\*.*;bin\**\*.*;" />
