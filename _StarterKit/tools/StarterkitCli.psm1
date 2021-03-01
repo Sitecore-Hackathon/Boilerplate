@@ -207,6 +207,7 @@ function Start-Docker {
     Write-Host "`ndon't forget to ""Populate Solr Managed Schema"" from the Control Panel`n`n`n" -ForegroundColor Yellow
     Write-PauseDanceAnim -PauseInSeconds 15    
     Write-Host "`n`n`ndance done.. opening https://$($url)`n`n" -ForegroundColor DarkGray
+    Write-Host "`nIf the request fails on first attempt, try hitting refresh..`n`n" -ForegroundColor DarkGray
     Start-Process "https://$url"
 }
 

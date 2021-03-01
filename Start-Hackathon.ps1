@@ -85,6 +85,7 @@ Set-EnvFileVariable "COMPOSE_PROJECT_NAME" -Value $solutionName.ToLower()
 Set-EnvFileVariable "HOST_LICENSE_FOLDER" -Value ".\license"
 Set-EnvFileVariable "HOST_DOMAIN"  -Value $hostDomain
 Set-EnvFileVariable "CM_HOST" -Value "cm.$($hostDomain)"
+Set-EnvFileVariable "CD_HOST" -Value "cd.$($hostDomain)"
 Set-EnvFileVariable "ID_HOST" -Value "id.$($hostDomain)"
 Set-EnvFileVariable "RENDERING_HOST" -Value "www.$($hostDomain)"
 
