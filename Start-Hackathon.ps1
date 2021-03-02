@@ -11,8 +11,7 @@ if (Test-IsEnvInitialized -FilePath ".\docker\.env" ) {
         Write-Host "TLS certificate for Traefik not found, generating and adding hosts file entries" -ForegroundColor Green
         Install-SitecoreDockerTools
         $hostDomain = Get-EnvValueByKey "HOST_DOMAIN"
-        if ($hostDomain -eq "") 
-        {
+        if ($hostDomain -eq "") {
             throw "Required variable 'HOST_DOMAIN' not set in .env file."
         }
         Initialize-HostNames $hostDomain
@@ -39,8 +38,7 @@ if ((Test-Path ".\*.sln")) {
 
 $solutionName = Read-ValueFromHost -Question "Please enter a valid solution name`n(Capital first letter, letters and numbers only, min. 3 char)" -ValidationRegEx "^[A-Z]([a-z]|[A-Z]|[0-9]){2}([a-z]|[A-Z]|[0-9])*$" -Required
 
-if (!(Test-Path ".\*.sln") -and !(Confirm -Question "Would you like to install a Docker environment preset?" -DefaultYes)) 
-{
+if (!(Test-Path ".\*.sln") -and !(Confirm -Question "Would you like to install a Docker environment preset?" -DefaultYes)) {
     Write-Host "Okay, No Docker preset will be installed.." -ForegroundColor Yellow
     Copy-Item ".\_StarterKit\_Boilerplate.sln" ".\" -Force
     Rename-SolutionFile $solutionName
@@ -97,20 +95,19 @@ $idCertPassword = Get-SitecoreRandomString 8 -DisallowSpecial
 Set-EnvFileVariable "SITECORE_ID_CERTIFICATE" -Value (Get-SitecoreCertificateAsBase64String -DnsName "localhost" -Password (ConvertTo-SecureString -String $idCertPassword -Force -AsPlainText))
 Set-EnvFileVariable "SITECORE_ID_CERTIFICATE_PASSWORD" -Value $idCertPassword
 Set-EnvFileVariable "SQL_SA_PASSWORD" -Value (Get-SitecoreRandomString 19 -DisallowSpecial -EnforceComplexity)
-Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value $AdminPassword
+Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version`nuse 10.1-ltsc2019, 10.1-1909, 10.1-2004, 10.1-20H2 (press enter for 10.1-ltsc2019)" -DefaultValue "10.1-ltsc2019" -Required)
+Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value (Read-ValueFromHost -Question "Sitecore admin password (press enter for 'b')" -DefaultValue "b" -Required)
 
 if (Confirm -Question "Would you like to adjust common environment settings?") {
-    Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version (press enter for 10.1-ltsc2019)" -DefaultValue "10.1-ltsc2019" -Required)
     Set-EnvFileVariable "SPE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore Powershell Extensions version (press enter for 6.2-1809)" -DefaultValue "6.2-1809" -Required)
-    Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value (Read-ValueFromHost -Question "Sitecore admin password (press enter for 'b')" -DefaultValue "b" -Required)
     Set-EnvFileVariable "REGISTRY" -Value (Read-ValueFromHost -Question "Local container registry (leave empty if none, must end with /)")
     Set-EnvFileVariable "ISOLATION" -Value (Read-ValueFromHost -Question "Container isolation mode (press enter for default)" -DefaultValue "default" -Required)
+}
 
-    if (Confirm -Question "Would you like to adjust container memory limits?") {
-        Set-EnvFileVariable "MEM_LIMIT_SQL" -Value (Read-ValueFromHost -Question "SQL Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
-        Set-EnvFileVariable "MEM_LIMIT_SOLR" -Value (Read-ValueFromHost -Question "Solr memory limit (default: 2GB)" -DefaultValue "2GB" -Required)
-        Set-EnvFileVariable "MEM_LIMIT_CM" -Value (Read-ValueFromHost -Question "CM Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
-    }
+if (Confirm -Question "Would you like to adjust container memory limits?") {
+    Set-EnvFileVariable "MEM_LIMIT_SQL" -Value (Read-ValueFromHost -Question "SQL Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
+    Set-EnvFileVariable "MEM_LIMIT_SOLR" -Value (Read-ValueFromHost -Question "Solr memory limit (default: 2GB)" -DefaultValue "2GB" -Required)
+    Set-EnvFileVariable "MEM_LIMIT_CM" -Value (Read-ValueFromHost -Question "CM Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
 }
 
 Start-Docker -Url "cm.$($hostDomain)/sitecore" -Build
