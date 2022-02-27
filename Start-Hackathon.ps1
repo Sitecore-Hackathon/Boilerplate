@@ -80,14 +80,13 @@ Write-Host "Copied license.xml to .\docker\license\" -ForegroundColor Magenta
 
 Push-Location ".\docker"
 Set-EnvFileVariable "COMPOSE_PROJECT_NAME" -Value $solutionName.ToLower() 
+Set-EnvFileVariable "REGISTRY" -Value (Read-ValueFromHost -Question "Local container registry (leave empty if none, must end with /)")
 Set-EnvFileVariable "HOST_LICENSE_FOLDER" -Value ".\license"
 Set-EnvFileVariable "HOST_DOMAIN"  -Value $hostDomain
 Set-EnvFileVariable "CM_HOST" -Value "cm.$($hostDomain)"
-Set-EnvFileVariable "CD_HOST" -Value "cd.$($hostDomain)"
 Set-EnvFileVariable "ID_HOST" -Value "id.$($hostDomain)"
 Set-EnvFileVariable "RENDERING_HOST" -Value "www.$($hostDomain)"
 
-Set-EnvFileVariable "REPORTING_API_KEY" -Value (Get-SitecoreRandomString 128 -DisallowSpecial)
 Set-EnvFileVariable "TELERIK_ENCRYPTION_KEY" -Value (Get-SitecoreRandomString 128)
 Set-EnvFileVariable "MEDIA_REQUEST_PROTECTION_SHARED_SECRET" -Value (Get-SitecoreRandomString 64 -DisallowSpecial)
 Set-EnvFileVariable "SITECORE_IDSECRET" -Value (Get-SitecoreRandomString 64 -DisallowSpecial)
@@ -95,14 +94,8 @@ $idCertPassword = Get-SitecoreRandomString 8 -DisallowSpecial
 Set-EnvFileVariable "SITECORE_ID_CERTIFICATE" -Value (Get-SitecoreCertificateAsBase64String -DnsName "localhost" -Password (ConvertTo-SecureString -String $idCertPassword -Force -AsPlainText))
 Set-EnvFileVariable "SITECORE_ID_CERTIFICATE_PASSWORD" -Value $idCertPassword
 Set-EnvFileVariable "SQL_SA_PASSWORD" -Value (Get-SitecoreRandomString 19 -DisallowSpecial -EnforceComplexity)
-Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version`n(10.1-ltsc2019, 10.1-1909, 10.1-2004, 10.1-20H2 - press enter for 10.1-ltsc2019)" -DefaultValue "10.1-ltsc2019" -Required)
+Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version`n(10.2-ltsc2019, 10.2-1909, 10.2-2004, 10.2-20H2 - press enter for 10.2-ltsc2019)" -DefaultValue "10.2-ltsc2019" -Required)
 Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value (Read-ValueFromHost -Question "Sitecore admin password (press enter for 'b')" -DefaultValue "b" -Required)
-
-if (Confirm -Question "Would you like to adjust common environment settings?") {
-    Set-EnvFileVariable "SPE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore Powershell Extensions version (press enter for 6.2-1809)" -DefaultValue "6.2-1809" -Required)
-    Set-EnvFileVariable "REGISTRY" -Value (Read-ValueFromHost -Question "Local container registry (leave empty if none, must end with /)")
-    Set-EnvFileVariable "ISOLATION" -Value (Read-ValueFromHost -Question "Container isolation mode (press enter for default)" -DefaultValue "default" -Required)
-}
 
 if (Confirm -Question "Would you like to adjust container memory limits?") {
     Set-EnvFileVariable "MEM_LIMIT_SQL" -Value (Read-ValueFromHost -Question "SQL Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)

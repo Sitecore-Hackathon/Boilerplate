@@ -11,36 +11,18 @@ function Select-DockerStarterKit {
     )
     Write-Host $Disclaimer -ForegroundColor Cyan -BackgroundColor Black
 
-    $experienceType = "xm"
-    
-    Write-PrePrompt
-    if (($host.ui.PromptForChoice("Select type of eXperience", @"
-Would you like a setup for Sitecore eXperience Manager (xm) or for Sitecore eXperience Platform (xp0)?
---
-Please only select XP if you use features not available in XM.
---
-"@, [ChoiceDescription[]](
-    [ChoiceDescription]::new("X&M (default)"), 
-    [ChoiceDescription]::new("X&P0")), 0)) -eq 1)
-    {
-        $experienceType = "xp0"
-    }
-    Write-Host "$($experienceType) selected.." -ForegroundColor Magenta
-
     $options = [ChoiceDescription[]](
-        [ChoiceDescription]::new("Clean Sitecore &$($experienceType) (default)"), 
-        [ChoiceDescription]::new("Dotnet &rendering host"), 
-        [ChoiceDescription]::new("&JavaScript Services (jss)"), 
-        [ChoiceDescription]::new("Sitecore eXperience &Accelerator (sxa)")
+        [ChoiceDescription]::new("Clean Sitecore &xm (default)"), 
+        [ChoiceDescription]::new("xm + dotnet &rendering host"), 
+        [ChoiceDescription]::new("xm + JavaScript Services (&jss)") 
     )
     
     Write-PrePrompt
-    $result = $host.ui.PromptForChoice("", "Select the variant that match your Hackathon category.", $options, 0)
+    $result = $host.ui.PromptForChoice("", "Please select the setup that best fit your Hackathon category. `n`nAll images has Sitecore Management Services (for CLI) and Sitecore Powershell Extensions pre-installed.", $options, 0)
     switch ($result) {
-        0 { "sitecore-$($experienceType)" }
-        1 { "sitecore-$($experienceType)-rendering" }
-        2 { "sitecore-$($experienceType)-jss" }
-        3 { "sitecore-$($experienceType)-sxa" }
+        0 { "sitecore-xm" }
+        1 { "sitecore-xm-headless-rendering" }
+        2 { "sitecore-xm-headless-jss" }
     }
 }
 
@@ -84,7 +66,7 @@ function Install-DockerStarterKit {
         }
         $folder = "$($folder)-"
     }
-    Move-Item (Join-Path $DestinationFolder "Dockerfile") ".\" -Force
+    Move-Item (Join-Path $DestinationFolder ".dockerignore") ".\" -Force
 }
 
 function Read-ValueFromHost {    
