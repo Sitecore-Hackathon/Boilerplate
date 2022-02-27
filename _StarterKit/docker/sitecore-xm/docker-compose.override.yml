@@ -36,10 +36,8 @@ services:
 
   mssql:
     volumes:
-      - type: bind
-        source: .\data\sql
-        target: c:\data
-    mem_limit: ${MEM_LIMIT_SQL:-2GB}        
+      - ${LOCAL_DATA_PATH}\mssql:c:\data
+    mem_limit: ${MEM_LIMIT_SQL:-2GB}           
   
   mssql-init:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-mssql-init:${SITECORE_VERSION}
