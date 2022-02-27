@@ -56,6 +56,7 @@ services:
       context: ./build/mssql-init
       args:
         BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-mssql-init:${SITECORE_VERSION}
+        HEADLESS_SERVICES_RESOURCES_IMAGE: ${HEADLESS_SERVICES_RESOURCES_IMAGE}              
         SPE_RESOURCES_IMAGE: ${SPE_RESOURCES_IMAGE}
 
   solr:
