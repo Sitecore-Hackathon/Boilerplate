@@ -24,22 +24,30 @@ services:
     scale: 0
 
   rendering:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-rendering:${VERSION:-latest}
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-rendering:${SITECORE_VERSION}
     build:
       context: ./build/rendering
       target: ${BUILD_CONFIGURATION}
       args:
-        DEBUG_PARENT_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
-        SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
-        ENTRYPOINT_PROJECT: ${RENDERING_ENTRYPOINT_PROJECT}
+        DEBUG_BASE_IMAGE: ${NETCORE_BUILD_IMAGE}
+        RELEASE_BASE_IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
+        SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${SITECORE_VERSION}
+        # ENTRYPOINT_ASSEMBLY: {rendering-project-layer-module}.dll 
+        ARTIFACTS_FOLDER: /artifacts/rendering
     volumes:
-      - ..\:C:\solution
+      - ${LOCAL_DEPLOY_PATH}\rendering:C:\deploy
     environment:
+      # ENTRYPOINT_ASSEMBLY: {rendering-project-layer-module}.dll 
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://*:80"
       Sitecore__InstanceUri: "http://cm"
       Sitecore__RenderingHostUri: "https://${RENDERING_HOST}"
       Sitecore__EnableExperienceEditor: "true"
+      Application_User_Name: ${SITECORE_APPLICATION_USER_NAME}
+      Application_User_Password: ${SITECORE_APPLICATION_USER_PASSWORD}
+      Application_User_Domain: ${SITECORE_APPLICATION_USER_DOMAIIN}
+      Application_CMS_URL: ${SITECORE_Application_CMS_URL}
+    mem_limit: ${MEM_LIMIT_RENDERING:-1GB}           
     depends_on:
       - solution
       - cm
@@ -48,6 +56,12 @@ services:
       - "traefik.http.routers.rendering-secure.entrypoints=websecure"
       - "traefik.http.routers.rendering-secure.rule=Host(`${RENDERING_HOST}`)"
       - "traefik.http.routers.rendering-secure.tls=true"
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/healthz"]
+      interval: 60s
+      timeout: 30s
+
 
   traefik:
     volumes:
