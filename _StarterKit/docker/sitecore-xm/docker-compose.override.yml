@@ -89,5 +89,7 @@ services:
     environment:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
       SITECORE_DEVELOPMENT_PATCHES: CustomErrorsOff
+    depends_on:
+      - solution
     mem_limit: ${MEM_LIMIT_CM:-4GB}        
     entrypoint: powershell.exe -Command "& C:\tools\entrypoints\iis\Development.ps1"
