@@ -79,7 +79,7 @@ services:
       args:
         DEBUG_BASE_IMAGE: ${NETCORE_BUILD_IMAGE}
         RELEASE_BASE_IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
-        SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${SITECORE_VERSION}
+        SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
         ENTRYPOINT_ASSEMBLY: ${ENTRYPOINT_ASSEMBLY}
         ARTIFACTS_FOLDER: /artifacts/rendering      
     volumes:

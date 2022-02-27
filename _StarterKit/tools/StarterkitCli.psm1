@@ -179,7 +179,7 @@ function Start-Docker {
     }
 
     if ($Build) {
-        docker-compose build
+        docker-compose build -m 4GB
     }
     docker-compose up -d
     Pop-Location
