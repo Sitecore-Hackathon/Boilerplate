@@ -122,8 +122,9 @@ function Sync {
 
 Write-Host ("$(Get-Timestamp): Sitecore Development ENTRYPOINT, starting...")
 
-if ($null -eq $ENV:ENTRYPOINT_ASSEMBLY) {
+if ($null -eq $ENV:ENTRYPOINT_ASSEMBLY -or $ENV:ENTRYPOINT_ASSEMBLY -eq "") {
     Write-Host ("$(Get-Timestamp): ENTRYPOINT_ASSEMBLY environment variable is not set. Exiting..")
+    exit 0
 }
 
 try {
