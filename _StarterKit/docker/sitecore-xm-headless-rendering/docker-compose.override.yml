@@ -80,8 +80,7 @@ services:
         RELEASE_BASE_IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
         SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${SITECORE_VERSION}
         ENTRYPOINT_ASSEMBLY: ${ENTRYPOINT_ASSEMBLY}
-        ARTIFACTS_FOLDER: /artifacts/rendering
-        HEADLESS_SERVICES_RESOURCES_IMAGE: ${HEADLESS_SERVICES_RESOURCES_IMAGE}        
+        ARTIFACTS_FOLDER: /artifacts/rendering      
     volumes:
       - ${LOCAL_DEPLOY_PATH}\rendering:C:\deploy
     environment:
@@ -119,6 +118,7 @@ services:
         TOOLS_RESOURCES_IMAGE: ${TOOLS_RESOURCES_IMAGE}
         DEVEX_RESOURCES_IMAGE: ${DEVEX_RESOURCES_IMAGE}
         SPE_RESOURCES_IMAGE: ${SPE_RESOURCES_IMAGE}
+        HEADLESS_SERVICES_RESOURCES_IMAGE: ${HEADLESS_SERVICES_RESOURCES_IMAGE}  
     volumes:
       - ${LOCAL_DEPLOY_PATH}\platform:C:\deploy
       - ${LOCAL_DATA_PATH}\cm:C:\inetpub\wwwroot\App_Data\logs
