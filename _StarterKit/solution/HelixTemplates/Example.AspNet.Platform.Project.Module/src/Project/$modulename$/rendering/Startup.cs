@@ -66,8 +66,6 @@ namespace $modulenamespace$.Rendering
                 // Includes forwarding of Scheme as X-Forwarded-Proto to the Layout Service, so that
                 // Sitecore Media and other links have the correct scheme.
                 .ForwardHeaders()
-                // Enable forwarding of relevant headers and client IP for Sitecore Tracking and Personalization.
-                .WithTracking()
                 // Enable support for the Experience Editor.
                 .WithExperienceEditor();
         }
@@ -114,9 +112,6 @@ namespace $modulenamespace$.Rendering
                 // Allow culture to be resolved via standard Sitecore URL prefix and query string (sc_lang).
                 options.UseSitecoreRequestLocalization();
             });
-
-            // Enable proxying of Sitecore robot detection scripts
-            app.UseSitecoreVisitorIdentification();
 
             app.UseEndpoints(endpoints =>
             {
