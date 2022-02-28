@@ -19,8 +19,6 @@
     <PackageReference Include="Microsoft.Extensions.Http" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <PackageReference Include="Sitecore.AspNet.ExperienceEditor" />
-    <PackageReference Include="Sitecore.AspNet.Tracking" />
-    <PackageReference Include="Sitecore.AspNet.Tracking.VisitorIdentification" />
     <PackageReference Include="Sitecore.LayoutService.Client" />
     <PackageReference Include="Sitecore.AspNet.RenderingEngine" />
   </ItemGroup>

@@ -12,7 +12,6 @@ using $modulenamespace$.Rendering.Models;
 using Sitecore.AspNet.ExperienceEditor;
 using Sitecore.AspNet.RenderingEngine.Extensions;
 using Sitecore.AspNet.RenderingEngine.Localization;
-using Sitecore.AspNet.Tracking;
 using Sitecore.LayoutService.Client.Extensions;
 using Sitecore.LayoutService.Client.Newtonsoft.Extensions;
 using Sitecore.LayoutService.Client.Request;
@@ -71,15 +70,6 @@ namespace $modulenamespace$.Rendering
                 .WithTracking()
                 // Enable support for the Experience Editor.
                 .WithExperienceEditor();
-
-            // Enable support for robot detection.
-            services.AddSitecoreVisitorIdentification(options =>
-            {
-                // Usually the SitecoreInstanceUri is same host as the Layout Service, but it can be any Sitecore CD/CM
-                // instance which shares same AspNet session with Layout Service. This address should be accessible
-                // from the Rendering Host and will be used to proxy robot detection scripts.
-                options.SitecoreInstanceUri = Configuration.InstanceUri;
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

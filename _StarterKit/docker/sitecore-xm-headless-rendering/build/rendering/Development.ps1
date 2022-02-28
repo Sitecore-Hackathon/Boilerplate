@@ -129,7 +129,7 @@ function Sync {
 Write-Host ("$(Get-Timestamp): Sitecore Development ENTRYPOINT, starting...")
 
 if ($null -eq $ENV:ENTRYPOINT_ASSEMBLY -or !(Test-Path "C:\App\$($ENV:ENTRYPOINT_ASSEMBLY)")) {
-    Write-Host ("$(Get-Timestamp): ENTRYPOINT_ASSEMBLY environment variable is not set or the dll does not exist. Exiting..") -ForegroundColor Red
+    Write-Host ("$(Get-Timestamp): ENTRYPOINT_ASSEMBLY environment variable is not set or the dll does not exist. `n``n`Please set this in your .env file or docker-compose.override.`n` Exiting..") -ForegroundColor Red
     Exit 1
 }
 
