@@ -26,7 +26,7 @@ if ($MvpSite.IsPresent -and (Confirm "This will download and extract the MVP sit
     Move-Item .\README.md .\README-HACKATHON.md -Force
     Remove-Item .\License -Recurse -Force
 
-    Get-ChildItem .\_tmp\ | Where-Object { $_.PSIsContainer } | ForEach-Object{ Copy-Item -Path "$($_.FullName)\*" -Destination .\ -Force  }
+    Get-ChildItem .\_tmp\ | Where-Object { $_.PSIsContainer } | ForEach-Object{ Copy-Item -Path "$($_.FullName)\*" -Destination .\ -Force -Recurse  }
     Write-Host "MVP Site fetched and extacted.. Cleaning up.." -ForegroundColor Magenta
     Remove-Item .\Stop-Hackathon.ps1 -Force
     Remove-Item .\Remove-Starterkit.ps1 -Force
