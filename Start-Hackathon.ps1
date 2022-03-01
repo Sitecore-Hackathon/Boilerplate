@@ -40,11 +40,6 @@ if ($MvpSite.IsPresent -and (Confirm "This will download and extract the MVP sit
     exit 0
 }
 
-if (!$MvpSite.IsPresent) {
-    Write-Host "[[ IMPORTANT ]] " -ForegroundColor Blue
-    Write-Host "If you plan to work on idea 3) then please exit and run this script with the switch -MvpSite. " -ForegroundColor Magenta
-}
-
 
 if (Test-IsEnvInitialized -FilePath ".\docker\.env" ) {
     Write-Host "Docker environment is present, starting docker.." -ForegroundColor Green
@@ -62,6 +57,14 @@ if (Test-IsEnvInitialized -FilePath ".\docker\.env" ) {
     }
     Start-Docker -Url "$(Get-EnvValueByKey "CM_HOST")/sitecore"
     exit 0
+}
+
+if (!$MvpSite.IsPresent) {
+    Write-Host "`n[IMPORTANT] " -ForegroundColor Blue -NoNewline
+    Write-Host "If you plan to work on idea #3 - please exit this script by pressing [ctrl-c] and run it again with the switch -MvpSite `n`n" -ForegroundColor Yellow
+    Write-Host "`like this:" -ForegroundColor DarkGray
+    Write-PrePrompt
+    Write-Host ".\Start-Hackathon.ps1 -MvpSite`n`n" -ForegroundColor White
 }
 
 if ( !(Test-Path ".\_StarterKit\docker")) {
