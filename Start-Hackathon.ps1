@@ -34,7 +34,7 @@ if ($MvpSite.IsPresent -and (Confirm "This will download and extract the MVP sit
     Remove-Item .\mvp-site.zip -Force
     Write-Output "[image of cute kitten]" > .\.mvpsite
     Write-Host "Done.. Now follow the instructions found in .\README-MVPSITE.md and commit changes " -ForegroundColor Green
-    Write-Host "`nor simply run `n`n.\Start-Environment -LicenseXmlPath {path to valid license.xml}`n`nand follow the on-screen instructions..`n" -ForegroundColor Yellow
+    Write-Host "`nor simply run `n`n.\Start-Environment -LicensePath {path to valid license.xml}`n`nand follow the on-screen instructions..`n" -ForegroundColor Yellow
     exit 0
 }
 
