@@ -34,7 +34,7 @@ if ($MvpSite.IsPresent -and (Confirm "This will download and extract the MVP sit
     Remove-Item .\mvp-site.zip -Force
     Write-Output "[image of cute kitten]" > .\.mvpsite
     Write-Host "Done.. Now follow the instructions found in .\README-MVPSITE.md and commit changes " -ForegroundColor Green
-    Write-Host "`nor simply run `n`n.\Start-Environment -LicenseXmlPath {path to valid license.xml}`n`nand follow the on-screen instructions..`n" -ForegroundColor Yellow
+    Write-Host "`nor simply run `n`n.\Start-Environment -LicensePath {path to valid license.xml}`n`nand follow the on-screen instructions..`n" -ForegroundColor Yellow
     exit 0
 }
 
@@ -104,7 +104,6 @@ Write-Host "$($dockerPreset) selected.." -ForegroundColor Magenta
 Write-Host "`nIncluding a basic solution msbuild setup" -ForegroundColor Green
 Install-DockerStarterKit -Name $dockerPreset -IncludeSolutionFiles $true
 
-
 Rename-SolutionFile $solutionName
 Install-SitecoreDockerTools
 
@@ -143,6 +142,8 @@ if (Confirm -Question "Would you like to adjust container memory limits?") {
     Set-EnvFileVariable "MEM_LIMIT_SOLR" -Value (Read-ValueFromHost -Question "Solr memory limit (default: 2GB)" -DefaultValue "2GB" -Required)
     Set-EnvFileVariable "MEM_LIMIT_CM" -Value (Read-ValueFromHost -Question "CM Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
 }
+
+dotnet tool restore
 
 Start-Docker -Url "cm.$($hostDomain)/sitecore" -Build
 

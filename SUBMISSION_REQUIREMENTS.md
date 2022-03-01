@@ -43,7 +43,7 @@ This should of course only be done on 1 machine and then commit this to share th
 For local environment setup follow the instructions found in the updated README.md file or simply run 
 
     ```ps1
-    .\Start-Environment -LicenseXmlPath "C:\path\to\license.xml"
+    .\Start-Environment -LicensePath "C:\path\to\license.xml"
     ```
 
 and follow the on-screen instructions.
