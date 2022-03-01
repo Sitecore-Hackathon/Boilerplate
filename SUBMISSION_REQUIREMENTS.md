@@ -38,15 +38,15 @@ For those with prior experience working with Docker, we have provided a ["starte
 
 This will download and extract a full copy of the MVP-site repository. This cannot be undone locally.
 
-This should of course only be done on 1 machine and then commit this to share the mvp-site setup with the rest of the team.
+Only run this on 1 machine, commit and push to share the mvp-site setup with the rest of the team.
 
-For local environment setup follow the instructions found in the updated README.md file or simply run 
+Then to initiate local environments follow the instructions found in the updated README.md file or simply run 
 
     ```ps1
     .\Start-Environment -LicensePath "C:\path\to\license.xml"
     ```
 
-and follow the on-screen instructions.
+from elevated PowerShell terminal and follow the on-screen instructions.
 
 _Note; the Hackathon README.md file is renamed to README-HACKATHON.md. Please use this for your ENTRYFORM.md._
 
