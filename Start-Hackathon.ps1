@@ -22,19 +22,25 @@ if ($MvpSite.IsPresent -and (Confirm "This will download and extract the MVP sit
     }
     mkdir .\_tmp
     Expand-Archive .\mvp-site.zip -DestinationPath .\_tmp
-    Move-Item .\README.md .\README-hack.md -Force
+
+    Move-Item .\README.md .\README-HACKATHON.md -Force
+    Remove-Item .\License -Recurse -Force
+
     Get-ChildItem .\_tmp\ | Where-Object { $_.PSIsContainer } | ForEach-Object{ Copy-Item -Path "$($_.FullName)\*" -Destination .\ -Force  }
     Write-Host "MVP Site fetched and extacted.. Cleaning up.." -ForegroundColor Magenta
-    Remove-Item .\Start-Hackathon.ps1 -Force
+    Remove-Item .\Stop-Hackathon.ps1 -Force
     Remove-Item .\Remove-Starterkit.ps1 -Force
-    Remove-Item .\_StarterKit -Recurse -Force
     Remove-Item .\_tmp -Recurse -Force
     Remove-Item .\mvp-site.zip -Force
-    Move-Item .\README.md .\README-MVPSITE.md -Force
-    Move-Item .\README-hack.md .\README.md -Force
     Write-Output "[image of cute kitten]" > .\.mvpsite
-    Write-Host "Done.. Now follow the instructions found in .\README-MVPSITE.md" -ForegroundColor Green
+    Write-Host "Done.. Now follow the instructions found in .\README-MVPSITE.md and commit changes " -ForegroundColor Green
+    Write-Host "`nor simply run `n`n.\Start-Environment -LicenseXmlPath {path to valid license.xml}`n`nand follow the on-screen instructions..`n" -ForegroundColor Yellow
     exit 0
+}
+
+if (!$MvpSite.IsPresent) {
+    Write-Host "[[IMPORTANT]] " -ForegroundColor Blue
+    Write-Host "If you plan to work on idea 3) then please exit and run this script with the switch -MvpSite. " -ForegroundColor Magenta
 }
 
 
