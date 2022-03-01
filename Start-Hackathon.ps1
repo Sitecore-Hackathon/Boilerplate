@@ -16,22 +16,22 @@ if (Test-Path .\.mvpsite) {
 if ($MvpSite.IsPresent -and (Confirm "This will download and extract the MVP site into this folder.`nPlease confirm?")) {
     Write-Host "Downloading..." -ForegroundColor Green
     Invoke-WebRequest -Uri "https://github.com/Sitecore/MVP-Site/archive/refs/heads/feature/start-env-script.zip" -OutFile .\mvp-site.zip
-    if (!Test-Path .\mvp-site.zip) {
+    if (!(Test-Path .\mvp-site.zip)) {
         Write-Host "Could not download a copy of the mvp site repository.. Please try again or download it manually from Github..." -ForegroundColor Red
         exit 0
     }
     mkdir .\_tmp
     Expand-Archive .\mvp-site.zip -DestinationPath .\_tmp
     Move-Item .\README.md .\README-hack.md -Force
-    Get-ChildItem .\_tmp\ | Where-Object { $_.PSIsContainer } | ForEach-Object{ Move-Item -Path "$($_.FullName)\*" -Destination .\ -Force  }
+    Get-ChildItem .\_tmp\ | Where-Object { $_.PSIsContainer } | ForEach-Object{ Copy-Item -Path "$($_.FullName)\*" -Destination .\ -Force  }
     Write-Host "MVP Site fetched and extacted.. Cleaning up.." -ForegroundColor Magenta
     Remove-Item .\Start-Hackathon.ps1 -Force
     Remove-Item .\Remove-Starterkit.ps1 -Force
     Remove-Item .\_StarterKit -Recurse -Force
-    Remove-Item .\tmp -Recurse -Force
+    Remove-Item .\_tmp -Recurse -Force
     Remove-Item .\mvp-site.zip -Force
     Move-Item .\README.md .\README-MVPSITE.md -Force
-    Move-Item .\README-hack.md.md .\README.md -Force
+    Move-Item .\README-hack.md .\README.md -Force
     Write-Output "[image of cute kitten]" > .\.mvpsite
     Write-Host "Done.. Now follow the instructions found in .\README-MVPSITE.md" -ForegroundColor Green
     exit 0
