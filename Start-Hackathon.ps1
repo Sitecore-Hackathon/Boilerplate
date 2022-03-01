@@ -9,7 +9,8 @@ Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\tools\StarterKitCLi") 
 Show-HackLogo
 
 if (Test-Path .\.mvpsite) {
-    Write-Host "Duuhh.. You cannot use this script anymore when you've already selected to copy in the MVP site. `n`nNow get back to work!..." -ForegroundColor Magenta
+    Write-Host "Duuhh.. rtfm; You cannot use this script anymore since you've copied in the MVP site...`n`n" -ForegroundColor Cyan
+    Write-Host "Now get back to work!...`n`n" -ForegroundColor DarkGray
     exit 0
 }
 
@@ -39,7 +40,7 @@ if ($MvpSite.IsPresent -and (Confirm "This will download and extract the MVP sit
 }
 
 if (!$MvpSite.IsPresent) {
-    Write-Host "[[IMPORTANT]] " -ForegroundColor Blue
+    Write-Host "[[ IMPORTANT ]] " -ForegroundColor Blue
     Write-Host "If you plan to work on idea 3) then please exit and run this script with the switch -MvpSite. " -ForegroundColor Magenta
 }
 
