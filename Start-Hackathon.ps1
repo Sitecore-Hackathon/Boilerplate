@@ -61,7 +61,8 @@ $dockerPreset = Select-DockerStarterKit -Disclaimer @"
 
 Write-Host "$($dockerPreset) selected.." -ForegroundColor Magenta
 
-Install-DockerStarterKit -Name $dockerPreset -IncludeSolutionFiles (Confirm -Question "Would you like to include a basic solution msbuild setup?" -DefaultYes)
+Write-Host "`nIncluding a basic solution msbuild setup" -ForegroundColor Green
+Install-DockerStarterKit -Name $dockerPreset -IncludeSolutionFiles $true
 
 
 Rename-SolutionFile $solutionName
@@ -94,7 +95,7 @@ $idCertPassword = Get-SitecoreRandomString 8 -DisallowSpecial
 Set-EnvFileVariable "SITECORE_ID_CERTIFICATE" -Value (Get-SitecoreCertificateAsBase64String -DnsName "localhost" -Password (ConvertTo-SecureString -String $idCertPassword -Force -AsPlainText))
 Set-EnvFileVariable "SITECORE_ID_CERTIFICATE_PASSWORD" -Value $idCertPassword
 Set-EnvFileVariable "SQL_SA_PASSWORD" -Value (Get-SitecoreRandomString 19 -DisallowSpecial -EnforceComplexity)
-Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version`n(10.2-ltsc2019, 10.2-1909, 10.2-2004, 10.2-20H2 - press enter for 10.2-ltsc2019)" -DefaultValue "10.2-ltsc2019" -Required)
+Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version`n(10.2-ltsc2019, 10.2-2009, 10.2-20H2 - press enter for 10.2-ltsc2019)" -DefaultValue "10.2-ltsc2019" -Required)
 Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value (Read-ValueFromHost -Question "Sitecore admin password (press enter for 'b')" -DefaultValue "b" -Required)
 
 if (Confirm -Question "Would you like to adjust container memory limits?") {
