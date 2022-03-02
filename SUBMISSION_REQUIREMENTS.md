@@ -46,7 +46,7 @@ Then to initiate local environments follow the instructions found in the updated
     .\Start-Environment -LicensePath "C:\path\to\license.xml"
     ```
 
-from elevated PowerShell terminal and follow the on-screen instructions.
+from an elevated PowerShell terminal and follow the on-screen instructions.
 
 _Note; the Hackathon README.md file is renamed to README-HACKATHON.md. Please use this for your ENTRYFORM.md._
 
