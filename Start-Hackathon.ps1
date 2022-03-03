@@ -81,6 +81,8 @@ if ((Test-Path ".\*.sln")) {
     }
 }
 
+Stop-IisIfRunning
+
 $solutionName = Read-ValueFromHost -Question "Please enter a valid solution name`n(Capital first letter, letters and numbers only, min. 3 char)" -ValidationRegEx "^[A-Z]([a-z]|[A-Z]|[0-9]){2}([a-z]|[A-Z]|[0-9])*$" -Required
 
 if (!(Test-Path ".\*.sln") -and !(Confirm -Question "Would you like to install a Docker environment preset?" -DefaultYes)) {
