@@ -22,11 +22,11 @@ For those with prior experience working with Docker, we have provided a ["starte
     .\Start-Hackathon -IdeaThree
     ```
 
-This will download and extract a full copy of the repository that you need for the idea. This cannot be undone locally and should only be run once.
+This cannot be undone locally and can only be run once.
 
-Run this on 1 machine, then commit and push to share the setup with the rest of the team.
+Run this on 1 machine, then commit and push to share the setup with the rest of your team.
 
-To initiate the local environments after setup follow the instructions found in the updated README.md file or simply run 
+To initiate the local docker development environment setup then follow the instructions found in the updated README.md file or simply run 
 
     ```ps1
     .\Start-Environment -LicensePath "C:\path\to\license.xml"
