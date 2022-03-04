@@ -2,7 +2,6 @@ using namespace System.Management.Automation.Host
 
 Set-StrictMode -Version Latest
 
-
 function Stop-IisIfRunning {
     $iisService = Get-Service w3svc  -ErrorAction SilentlyContinue
     if ($null -eq $iisService -or $null -eq $iisService.Status -or $iisService.Status -ne 'Running') {
@@ -232,6 +231,10 @@ function Stop-Docker {
         }
     }
     Pop-Location
+}
+
+function Get-FetchUrl {
+    [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly9naXRodWIuY29tL1NpdGVjb3JlL01WUC1TaXRlL2FyY2hpdmUvcmVmcy9oZWFkcy9mZWF0dXJlL3N0YXJ0LWVudi1zY3JpcHQuemlw"))
 }
 
 function Install-SitecoreDockerTools {

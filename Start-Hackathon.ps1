@@ -1,39 +1,41 @@
 #Requires -RunAsAdministrator
 param (
     [Switch]
-    $MvpSite
+    $IdeaThree
 )
 
 Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\tools\StarterKitCLi") -Force
 
 Show-HackLogo
 
-if (Test-Path .\.mvpsite) {
-    Write-Host "Duuhh.. rtfm; You cannot use this script anymore since you've copied in the MVP site...`n`n" -ForegroundColor Cyan
+if (Test-Path .\.idea3) {
+    Write-Host "Duuhh.. rtfm; You cannot use this script anymore since you've selected idea #3...`n`n" -ForegroundColor Cyan
     Write-Host "Now get back to work!...`n`n" -ForegroundColor DarkGray
     exit 0
 }
 
-if ($MvpSite.IsPresent -and (Confirm "This will download and extract the MVP site into this folder.`nPlease confirm?")) {
+if ($IdeaThree.IsPresent -and (Confirm "This will download and extract the files needed for idea #3 into this folder.`nPlease confirm?")) {
     Write-Host "Downloading..." -ForegroundColor Green
-    Invoke-WebRequest -Uri "https://github.com/Sitecore/MVP-Site/archive/refs/heads/feature/start-env-script.zip" -OutFile .\mvp-site.zip
-    if (!(Test-Path .\mvp-site.zip)) {
-        Write-Host "Could not download a copy of the mvp site repository.. Please try again or download it manually from Github..." -ForegroundColor Red
+
+    $url = Get-FetchUrl
+    Invoke-WebRequest -Uri $url -OutFile .\archive.zip
+    if (!(Test-Path .\archive.zip)) {
+        Write-Host "Could not download required files.. Please try again or download it manually from Github..." -ForegroundColor Red
         exit 0
     }
     mkdir .\_tmp
-    Expand-Archive .\mvp-site.zip -DestinationPath .\_tmp
+    Expand-Archive .\archive.zip -DestinationPath .\_tmp
 
     Move-Item .\README.md .\README-HACKATHON.md -Force
     Remove-Item .\License -Recurse -Force
 
     Get-ChildItem .\_tmp\ | Where-Object { $_.PSIsContainer } | ForEach-Object{ Copy-Item -Path "$($_.FullName)\*" -Destination .\ -Force -Recurse  }
-    Write-Host "MVP Site fetched and extacted.. Cleaning up.." -ForegroundColor Magenta
+    Write-Host "Data fetched and extacted.. Cleaning up.." -ForegroundColor Magenta
     Remove-Item .\Stop-Hackathon.ps1 -Force
     Remove-Item .\Remove-Starterkit.ps1 -Force
     Remove-Item .\_tmp -Recurse -Force
-    Remove-Item .\mvp-site.zip -Force
-    Write-Output "[image of cute kitten]" > .\.mvpsite
+    Remove-Item .\archive.zip -Force
+    Write-Output "[image of cute kitten]" > .\.idea3
     Write-Host "Done.. Now follow the instructions found in .\README.md " -ForegroundColor Green
     Write-Host "`nor simply run `n`n.\Start-Environment -LicensePath {path to valid license.xml}`n`nand follow the on-screen instructions..`n" -ForegroundColor Yellow
     Write-Host "`nRemember to commit and push the setup so other team members can get started.`n " -ForegroundColor Magenta
@@ -59,12 +61,12 @@ if (Test-IsEnvInitialized -FilePath ".\docker\.env" ) {
     exit 0
 }
 
-if (!$MvpSite.IsPresent) {
+if (!$IdeaThree.IsPresent) {
     Write-Host "`n[IMPORTANT] " -ForegroundColor Blue -NoNewline
-    Write-Host "If you plan to work on idea #3 - please exit this script by pressing [ctrl-c] and run it again with the switch -MvpSite `n`n" -ForegroundColor Yellow
+    Write-Host "If you plan to work on idea #3 - please exit this script by pressing [ctrl-c] and run it again with the switch -IdeaThree `n`n" -ForegroundColor Yellow
     Write-Host "`like this:" -ForegroundColor DarkGray
     Write-PrePrompt
-    Write-Host ".\Start-Hackathon.ps1 -MvpSite`n`n" -ForegroundColor White
+    Write-Host ".\Start-Hackathon.ps1 -IdeaThree`n`n" -ForegroundColor White
 }
 
 if ( !(Test-Path ".\_StarterKit\docker")) {

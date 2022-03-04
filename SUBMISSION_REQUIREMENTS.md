@@ -1,16 +1,3 @@
-## 💡Ideas for Hackathon 2022:
-1. Build an e-commerce Minimum Viable Product to sell community t-shirts  
-   *  The submission must include the following technologies:
-      *  Sitecore XM - Rendering host (.net or jss)
-      *  Sitecore Send
-      *  Sitecore Order Cloud
-   *  Authentication is _not_ required
-   *  Payment processing _not_ required
-2. Sitecore Command Line Interface (CLI) plugin
-   *  https://doc.sitecore.com/xp/en/developers/102/developer-tools/sitecore-command-line-interface.html
-3. Best addition to the Sitecore MVP site
-   *  https://github.com/Sitecore/MVP-Site
-
 ## 📜Entry Submission Requirements 
 All teams are required to submit the following as part of their entry submission no later than the end of the Hackathon on Saturday March 5th 2022 at 8PM EST. The submitted entries shall be based on [**Sitecore 10.2 XM**](https://dev.sitecore.net/Downloads/Sitecore_Experience_Platform/102/Sitecore_Experience_Platform_102.aspx).
 
@@ -23,24 +10,23 @@ All teams are required to submit the following as part of their entry submission
    > You **must** use an elevated/Administrator PowerShell terminal to run the `.\Start-Hackathon script.`  
    > [Windows Terminal](https://github.com/microsoft/terminal/releases) looks best but the built-in Windows Powershell 5.1 terminal works too.
 
-### Idea 1 and 2
 The choice is yours as to how you install Sitecore locally for the Hackathon. There is no requirement on whether you setup with Docker, SIF/SIA, Sifon, SIFless, SIM, or [insert creative approach]. We do however require that the installation steps are simple, few, and require no magic to get your submission working. We encourage you to perform a fresh install and follow your own documentation to ensure that no steps are missed. It would be unwise to try any of these installation methods for the first time the day of the Hackathon because so much can go wrong; do what you know well and invest as much time as you can being creative working on your solution.
 
 For those with prior experience working with Docker, we have provided a ["starter kit"](STARTERKIT_INSTRUCTIONS.md) in this GitHub repository (thanks Anders) with a variety of options to speed things up. 🚀 
 
-### Idea 3
+### Special setup for Idea #3
 
-1. Run the Start-Hackathon script from an _elevated_ PowerShell terminal with the switch `-MvpSite`
+1. Run the Start-Hackathon script from an _elevated_ PowerShell terminal with the switch `-IdeaThree`
 
     ```ps1
-    .\Start-Hackathon -MvpSite
+    .\Start-Hackathon -IdeaThree
     ```
 
-This will download and extract a full copy of the MVP-site repository. This cannot be undone locally.
+This will download and extract a full copy of the repository that you need for the idea. This cannot be undone locally and should only be run once.
 
-Only run this on 1 machine, commit and push to share the mvp-site setup with the rest of the team.
+Run this on 1 machine, then commit and push to share the setup with the rest of the team.
 
-Then to initiate local environments follow the instructions found in the updated README.md file or simply run 
+To initiate the local environments after setup follow the instructions found in the updated README.md file or simply run 
 
     ```ps1
     .\Start-Environment -LicensePath "C:\path\to\license.xml"
