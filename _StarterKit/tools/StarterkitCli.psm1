@@ -234,7 +234,7 @@ function Stop-Docker {
 }
 
 function Get-FetchUrl {
-    [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly9naXRodWIuY29tL1NpdGVjb3JlL01WUC1TaXRlL2FyY2hpdmUvcmVmcy9oZWFkcy9mZWF0dXJlL3N0YXJ0LWVudi1zY3JpcHQuemlw"))
+    [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String("aAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwBTAGkAdABlAGMAbwByAGUALwBNAFYAUAAtAFMAaQB0AGUALwBhAHIAYwBoAGkAdgBlAC8AcgBlAGYAcwAvAGgAZQBhAGQAcwAvAGYAZQBhAHQAdQByAGUALwBzAHQAYQByAHQALQBlAG4AdgAtAHMAYwByAGkAcAB0AC4AegBpAHAA"))
 }
 
 function Install-SitecoreDockerTools {
