@@ -28,8 +28,6 @@ _You can alternately paste a [link here](#docs) to a document within this repo c
 
 ⟹ [Replace this Video link](#video-link)
 
-
-
 ## Pre-requisites and Dependencies
 
 ⟹ Does your module rely on other Sitecore modules or frameworks?
